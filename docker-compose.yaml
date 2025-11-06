@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: mvs
+      POSTGRES_PASSWORD: mvs
+      POSTGRES_DB: mvs
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - database
+
+volumes:
+  db:
