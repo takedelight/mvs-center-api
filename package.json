@@ -11,9 +11,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@faker-js/faker": "^10.1.0"
+    "@faker-js/faker": "^10.1.0",
+    "prisma": "^6.19.0"
   },
   "dependencies": {
-    "express": "^5.1.0"
+    "@prisma/client": "^6.19.0",
+    "@prisma/config": "^6.19.0",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
   }
 }
