@@ -3,14 +3,13 @@ export class Sorter {
     this.data = [...data];
   }
 
-  measureTime(fn, key) {
+  measureTime(fn) {
     const ops = { comparisons: 0 };
     const start = performance.now();
-    const array = fn(ops);
+    const sortedArray = fn(ops);
     const end = performance.now();
     return {
-      key,
-      array,
+      sortedArray,
       time: `${(end - start).toFixed(3)}ms`,
       comparisons: ops.comparisons,
     };
