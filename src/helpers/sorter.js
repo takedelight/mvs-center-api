@@ -3,13 +3,14 @@ export class Sorter {
     this.data = [...data];
   }
 
-  measureTime(fn) {
+  measureTime(fn, key) {
     const ops = { comparisons: 0 };
     const start = performance.now();
-    const sortedArray = fn(ops);
+    const array = fn(ops);
     const end = performance.now();
     return {
-      sortedArray,
+      key,
+      array,
       time: `${(end - start).toFixed(3)}ms`,
       comparisons: ops.comparisons,
     };
@@ -25,8 +26,16 @@ export class Sorter {
     }
 
     if (key === "priority") {
-      const order = ["низький", "середній", "високий"];
-      return order.indexOf(a.priority) - order.indexOf(b.priority);
+      const priorityA = Number(a.priority);
+      const priorityB = Number(b.priority);
+      return priorityA - priorityB;
+    }
+
+    if (key === "status") {
+      // false має бути перед true → тому Number(false)=0, Number(true)=1
+      const statusA = Number(a.status);
+      const statusB = Number(b.status);
+      return statusA - statusB;
     }
 
     return 0;
@@ -59,7 +68,7 @@ export class Sorter {
         heapify(a, i, 0);
       }
       return a;
-    });
+    }, key);
   }
 
   bubbleSort(key) {
@@ -73,7 +82,7 @@ export class Sorter {
         }
       }
       return a;
-    });
+    }, key);
   }
 
   quickSort(key) {
@@ -95,7 +104,7 @@ export class Sorter {
         return [...quick(left), ...middle, ...quick(right)];
       };
       return quick(this.data);
-    });
+    }, key);
   }
 
   mergeSort(key) {
@@ -121,7 +130,7 @@ export class Sorter {
       };
 
       return sort(this.data);
-    });
+    }, key);
   }
 
   insertionSort(key) {
@@ -137,7 +146,7 @@ export class Sorter {
         a[j + 1] = keyItem;
       }
       return a;
-    });
+    }, key);
   }
 
   selectionSort(key) {
@@ -156,6 +165,6 @@ export class Sorter {
         }
       }
       return a;
-    });
+    }, key);
   }
 }

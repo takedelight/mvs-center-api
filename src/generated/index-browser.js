@@ -125,6 +125,7 @@ exports.Prisma.StatementScalarFieldEnum = {
   id: 'id',
   name: 'name',
   type: 'type',
+  status: 'status',
   priority: 'priority',
   client: 'client',
   createdAt: 'createdAt'

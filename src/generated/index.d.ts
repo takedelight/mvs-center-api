@@ -887,6 +887,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     type: string | null
+    status: boolean | null
     priority: number | null
     client: string | null
     createdAt: Date | null
@@ -896,6 +897,7 @@ export namespace Prisma {
     id: number | null
     name: string | null
     type: string | null
+    status: boolean | null
     priority: number | null
     client: string | null
     createdAt: Date | null
@@ -905,6 +907,7 @@ export namespace Prisma {
     id: number
     name: number
     type: number
+    status: number
     priority: number
     client: number
     createdAt: number
@@ -926,6 +929,7 @@ export namespace Prisma {
     id?: true
     name?: true
     type?: true
+    status?: true
     priority?: true
     client?: true
     createdAt?: true
@@ -935,6 +939,7 @@ export namespace Prisma {
     id?: true
     name?: true
     type?: true
+    status?: true
     priority?: true
     client?: true
     createdAt?: true
@@ -944,6 +949,7 @@ export namespace Prisma {
     id?: true
     name?: true
     type?: true
+    status?: true
     priority?: true
     client?: true
     createdAt?: true
@@ -1040,6 +1046,7 @@ export namespace Prisma {
     id: number
     name: string
     type: string
+    status: boolean
     priority: number
     client: string
     createdAt: Date
@@ -1068,6 +1075,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     type?: boolean
+    status?: boolean
     priority?: boolean
     client?: boolean
     createdAt?: boolean
@@ -1077,6 +1085,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     type?: boolean
+    status?: boolean
     priority?: boolean
     client?: boolean
     createdAt?: boolean
@@ -1086,6 +1095,7 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     type?: boolean
+    status?: boolean
     priority?: boolean
     client?: boolean
     createdAt?: boolean
@@ -1095,12 +1105,13 @@ export namespace Prisma {
     id?: boolean
     name?: boolean
     type?: boolean
+    status?: boolean
     priority?: boolean
     client?: boolean
     createdAt?: boolean
   }
 
-  export type StatementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "priority" | "client" | "createdAt", ExtArgs["result"]["statement"]>
+  export type StatementOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "type" | "status" | "priority" | "client" | "createdAt", ExtArgs["result"]["statement"]>
 
   export type $StatementPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Statement"
@@ -1109,6 +1120,7 @@ export namespace Prisma {
       id: number
       name: string
       type: string
+      status: boolean
       priority: number
       client: string
       createdAt: Date
@@ -1538,6 +1550,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Statement", 'Int'>
     readonly name: FieldRef<"Statement", 'String'>
     readonly type: FieldRef<"Statement", 'String'>
+    readonly status: FieldRef<"Statement", 'Boolean'>
     readonly priority: FieldRef<"Statement", 'Int'>
     readonly client: FieldRef<"Statement", 'String'>
     readonly createdAt: FieldRef<"Statement", 'DateTime'>
@@ -1925,6 +1938,7 @@ export namespace Prisma {
     id: 'id',
     name: 'name',
     type: 'type',
+    status: 'status',
     priority: 'priority',
     client: 'client',
     createdAt: 'createdAt'
@@ -1983,6 +1997,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'DateTime'
    */
   export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
@@ -2020,6 +2041,7 @@ export namespace Prisma {
     id?: IntFilter<"Statement"> | number
     name?: StringFilter<"Statement"> | string
     type?: StringFilter<"Statement"> | string
+    status?: BoolFilter<"Statement"> | boolean
     priority?: IntFilter<"Statement"> | number
     client?: StringFilter<"Statement"> | string
     createdAt?: DateTimeFilter<"Statement"> | Date | string
@@ -2029,6 +2051,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     type?: SortOrder
+    status?: SortOrder
     priority?: SortOrder
     client?: SortOrder
     createdAt?: SortOrder
@@ -2041,6 +2064,7 @@ export namespace Prisma {
     NOT?: StatementWhereInput | StatementWhereInput[]
     name?: StringFilter<"Statement"> | string
     type?: StringFilter<"Statement"> | string
+    status?: BoolFilter<"Statement"> | boolean
     priority?: IntFilter<"Statement"> | number
     client?: StringFilter<"Statement"> | string
     createdAt?: DateTimeFilter<"Statement"> | Date | string
@@ -2050,6 +2074,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     type?: SortOrder
+    status?: SortOrder
     priority?: SortOrder
     client?: SortOrder
     createdAt?: SortOrder
@@ -2067,6 +2092,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Statement"> | number
     name?: StringWithAggregatesFilter<"Statement"> | string
     type?: StringWithAggregatesFilter<"Statement"> | string
+    status?: BoolWithAggregatesFilter<"Statement"> | boolean
     priority?: IntWithAggregatesFilter<"Statement"> | number
     client?: StringWithAggregatesFilter<"Statement"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Statement"> | Date | string
@@ -2075,6 +2101,7 @@ export namespace Prisma {
   export type StatementCreateInput = {
     name: string
     type: string
+    status?: boolean
     priority?: number
     client: string
     createdAt: Date | string
@@ -2084,6 +2111,7 @@ export namespace Prisma {
     id?: number
     name: string
     type: string
+    status?: boolean
     priority?: number
     client: string
     createdAt: Date | string
@@ -2092,6 +2120,7 @@ export namespace Prisma {
   export type StatementUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     priority?: IntFieldUpdateOperationsInput | number
     client?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2101,6 +2130,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     priority?: IntFieldUpdateOperationsInput | number
     client?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2110,6 +2140,7 @@ export namespace Prisma {
     id?: number
     name: string
     type: string
+    status?: boolean
     priority?: number
     client: string
     createdAt: Date | string
@@ -2118,6 +2149,7 @@ export namespace Prisma {
   export type StatementUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     priority?: IntFieldUpdateOperationsInput | number
     client?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2127,6 +2159,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     name?: StringFieldUpdateOperationsInput | string
     type?: StringFieldUpdateOperationsInput | string
+    status?: BoolFieldUpdateOperationsInput | boolean
     priority?: IntFieldUpdateOperationsInput | number
     client?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -2158,6 +2191,11 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
   export type DateTimeFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2173,6 +2211,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     type?: SortOrder
+    status?: SortOrder
     priority?: SortOrder
     client?: SortOrder
     createdAt?: SortOrder
@@ -2187,6 +2226,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     type?: SortOrder
+    status?: SortOrder
     priority?: SortOrder
     client?: SortOrder
     createdAt?: SortOrder
@@ -2196,6 +2236,7 @@ export namespace Prisma {
     id?: SortOrder
     name?: SortOrder
     type?: SortOrder
+    status?: SortOrder
     priority?: SortOrder
     client?: SortOrder
     createdAt?: SortOrder
@@ -2240,6 +2281,14 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -2256,6 +2305,10 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type IntFieldUpdateOperationsInput = {
@@ -2293,6 +2346,11 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedDateTimeFilter<$PrismaModel = never> = {
@@ -2348,6 +2406,14 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedStringFilter<$PrismaModel>
     _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {

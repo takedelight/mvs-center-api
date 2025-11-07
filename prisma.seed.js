@@ -2,7 +2,7 @@ import "dotenv/config";
 
 import { Faker, uk } from "@faker-js/faker";
 import { PrismaClient } from "./src/generated/client.js";
-import {types} from "./src/constants.js";
+import { types } from "./src/constants.js";
 
 const faker = new Faker({ locale: uk });
 
@@ -19,6 +19,7 @@ async function main() {
         name: sanitize(`Заявка №${i + 1}`),
         type: sanitize(faker.helpers.arrayElement(types)),
         priority: faker.number.int({ min: 1, max: 3 }),
+        status: faker.datatype.boolean(),
         createdAt: faker.date.between({
           from: String(new Date("2000-05-01")),
           to: String(new Date("2025-11-04")),

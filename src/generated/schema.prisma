@@ -5,8 +5,9 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  output        = "../src/generated"
 }
 
 datasource db {
@@ -15,10 +16,11 @@ datasource db {
 }
 
 model Statement {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   name     String
   type     String
-  priority Int    @default(1)
+  status   Boolean @default(false)
+  priority Int     @default(1)
   client   String
 
   createdAt DateTime

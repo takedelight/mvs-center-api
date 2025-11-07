@@ -6,7 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
-    output   = "../src/generated"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+  output   = "../src/generated"
 }
 
 datasource db {
@@ -19,6 +20,7 @@ model Statement{
   id Int @id @default(autoincrement())
   name String 
   type String
+  status Boolean @default(false)
   priority Int  @default(1)
   client String
 

@@ -1,19 +1,45 @@
 import express, { json } from "express";
-import { generateStatements } from "./helpers/generateStatements.js";
+import { PrismaClient } from "./generated/client.js";
+import { Sorter } from "./helpers/sorter.js";
 
-const http = express();
-http.use(json());
+const app = express();
+app.use(json());
 
-http.get("/data", async (req, res) => {
-  const data = await generateStatements();
+const prisma = new PrismaClient();
 
-  console.log(data);
-  res.json({
-    // total: data.length,
-    data: data,
+app.get("/data", async (req, res) => {
+  const method = req.query.method || "heapSort";
+  const limit = Number(req.query.limit) || 100;
+  const sortedBy = req.query.sort_by || "createdAt";
+  const data = await prisma.statement.findMany({
+    take: limit,
   });
+  const sorter = new Sorter(data);
+
+  if (method === "all") {
+    const algorithms = [
+      "heapSort",
+      "bubbleSort",
+      "quickSort",
+      "mergeSort",
+      "insertionSort",
+      "selectionSort",
+    ];
+
+    const chartData = algorithms.map((name) => {
+      const { time, comparisons } = sorter[name](sortedBy);
+      return { name, time, comparisons };
+    });
+
+    const { data: sortedData } = sorter.heapSort(sortedBy);
+
+    return res.json({ sortedData, chartData });
+  }
+
+  const result = sorter[method](sortedBy);
+  res.json(result);
 });
 
-http.listen(3000, () => {
-  console.log("Server started on port 3000");
+app.listen(3000, () => {
+  console.log("started on http://localhost:3000");
 });
