@@ -10,8 +10,8 @@ export class Sorter {
     const end = performance.now();
     return {
       sortedArray,
-      time: `${(end - start).toFixed(3)}ms`,
-      comparisons: ops.comparisons,
+      time: (end - start).toFixed(3),
+      comparisions: ops.comparisons,
     };
   }
 
@@ -31,7 +31,6 @@ export class Sorter {
     }
 
     if (key === "status") {
-      // false має бути перед true → тому Number(false)=0, Number(true)=1
       const statusA = Number(a.status);
       const statusB = Number(b.status);
       return statusA - statusB;

@@ -5,6 +5,11 @@ import { Sorter } from "./helpers/sorter.js";
 const app = express();
 app.use(json());
 
+app.use((req, res, next) => {
+  console.log(req.url);
+  next();
+});
+
 const algs = [
   "heapSort",
   "bubbleSort",
@@ -18,40 +23,45 @@ const prisma = new PrismaClient();
 
 app.get("/data", async (req, res) => {
   const limit = Number(req.query.limit) || 100;
+  const sortBy = req.query.sort_by || "createdAt";
+  const method = req.query.method;
+  const statements = await prisma.statement.findMany({ take: limit });
+  const sorter = new Sorter(statements);
 
-  const data = await prisma.statement.findMany({ take: limit });
-  res.json(data);
-});
+  if (method) {
+    const { sortedArray, time, comparisions } = sorter[method](sortBy);
 
-app.get("/data/sort", async (req, res) => {
-  try {
-    const limit = Number(req.query.limit) || 100;
-    const sortBy = req.query.sort_by || "createdAt";
-    const method = req.query.method;
-
-    const statements = await prisma.statement.findMany({ take: limit });
-    const sorter = new Sorter(statements);
-    const { sortedArray } = sorter[method](sortBy);
-
-    res.json({ method, sortBy, length: sortedArray.length, sortedArray });
-  } catch (error) {
-    console.log(error);
-    res.json({ status_code: 500, message: "Bad Request" });
+    return res.json({
+      method,
+      sortBy,
+      time,
+      comparisions,
+      length: sortedArray.length,
+      statements: sortedArray,
+    });
   }
+
+  return res.json({ statements, length: statements.length });
 });
 
 app.get("/stats", async (req, res) => {
   try {
     const limit = Number(req.query.limit) || 100;
     const sortBy = req.query.sort_by || "createdAt";
-    const methods = req.query.algorithms || [];
+    const methods = []
+      .concat(req.query.algorithm || [])
+      .map((s) => s.replace(/&/g, ""));
 
     const statements = await prisma.statement.findMany({ take: limit });
     const sorter = new Sorter(statements);
-
     const stats = methods.map((key) => {
-      const { time, comparisons } = sorter[key](sortBy);
-      return {key, time, comparisons };
+      if (typeof sorter[key] === "function") {
+        const { time, comparisions } = sorter[key](sortBy);
+
+        return { method: key, time, comparisions };
+      } else {
+        return res.json({ method: key, error: "Method not found" });
+      }
     });
 
     res.json(stats);
