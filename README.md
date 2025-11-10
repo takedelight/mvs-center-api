@@ -35,19 +35,3 @@ docker ps
 
 API буде доступне за адресою: [http://localhost:3000](http://localhost:3000)
 
-### 4. Запуск без Docker
-
-```bash
-npm run dev
-```
-
-### 5. Збірка та запуск для продакшн
-
-```bash
-npm run build
-npm run start
-```
-
-### 6. Доступ до API
-
-API працює на [http://localhost:3000](http://localhost:3000)
